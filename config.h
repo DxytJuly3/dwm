@@ -114,8 +114,8 @@ static const Key keys[] = {
     { MODKEY,                       XK_b,           togglebar,          {0} },                  // super + b     | 状态栏打开\关闭
     { MODKEY,                       XK_i,           incnmaster,         {.i = +1 } },        // super + i | 工作区设置为上下分布
     { MODKEY,                       XK_d,           incnmaster,         {.i = -1 } },        // super + d | 工作区设置为左右分布
-    { MODKEY,                       XK_h,           setmfact,           {.f = -0.02} },      // super + h | 工作区中心线向左移动 0.02
-    { MODKEY,                       XK_l,           setmfact,           {.f = +0.02} },      // super + h | 工作区中心线向右移动 0.02
+    { MODKEY|ShiftMask,             XK_h,           setmfact,           {.f = -0.02} },      // super + h | 工作区中心线向左移动 0.02
+    { MODKEY|ShiftMask,             XK_l,           setmfact,           {.f = +0.02} },      // super + h | 工作区中心线向右移动 0.02
     { MODKEY|ShiftMask,             XK_Return,      zoom,               {0} },     // super + Shift + enter | 当前聚焦窗口设置为主窗口
     { MODKEY,                       XK_Tab,         view,               {0} },     // super + Tab           | 切换到上一个tag
     { MODKEY,                       XK_q,           killclient,         {0} },     // super + q             | 关闭当前窗口
@@ -126,10 +126,10 @@ static const Key keys[] = {
     { MODKEY,                       XK_0,           view,               {.ui = ~0 } },    // super + 0       | 预览所有tags窗口
     { MODKEY|ShiftMask,             XK_0,           tag,                {.ui = ~0 } },
     { MODKEY|ControlMask,           XK_F12,         quit,               {0} },            // super + ctrl + F12       | 退出 dwm
-    { MODKEY|ShiftMask,				XK_i,           exchange_client,	{.i = UP } },           // super shift i      | 二维交换窗口
-    { MODKEY|ShiftMask,				XK_k,           exchange_client,	{.i = DOWN } },         // super shift k      | 二维交换窗口
-    { MODKEY|ShiftMask,				XK_j,           exchange_client,	{.i = LEFT} },          // super shift j      | 二维交换窗口
-    { MODKEY|ShiftMask,				XK_l,           exchange_client,	{.i = RIGHT } },        // super shift l      | 二维交换窗口
+    { MODKEY,						XK_i,           exchange_client,	{.i = UP } },           // super shift i      | 二维交换窗口
+    { MODKEY,						XK_k,           exchange_client,	{.i = DOWN } },         // super shift k      | 二维交换窗口
+    { MODKEY,						XK_j,           exchange_client,	{.i = LEFT} },          // super shift j      | 二维交换窗口
+    { MODKEY,						XK_l,           exchange_client,	{.i = RIGHT } },        // super shift l      | 二维交换窗口
 	/* key tag cmd */
     TAGKEYS(XK_1, 0)
     TAGKEYS(XK_2, 1)
@@ -150,12 +150,12 @@ static const Button buttons[] = {
     { ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[1]} },
     { ClkWinTitle,          0,              Button2,        zoom,           {0} },
     { ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
-    { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },                          // super+左键窗口   |  拖拽窗口
-    { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },                          // super+右键窗口   |  改变窗口大小
-    { ClkTagBar,            0,              Button1,        view,           {0} },                          // 左键tag          |  切换tag
-    { ClkTagBar,            0,              Button3,        toggleview,     {0} },                          // 右键tag          |  选中tag
-    { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },                          // super+左键tag    |  将当前聚焦窗口切换到tag
-    { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },                          // super+右键tag    |  将当前聚焦窗口同步到tag
+    { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },           // super+左键窗口   |  拖拽窗口
+    { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },           // super+右键窗口   |  改变窗口大小
+    { ClkTagBar,            0,              Button1,        view,           {0} },           // 左键tag          |  切换tag
+    { ClkTagBar,            0,              Button3,        toggleview,     {0} },           // 右键tag          |  选中tag
+    { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },     // super+左键tag    |  将当前聚焦窗口切换到tag
+    { ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },     // super+右键tag    |  将当前聚焦窗口同步到tag
 };
 
 
