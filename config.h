@@ -8,8 +8,8 @@ static const unsigned int borderpx			= 2;         /* 窗口边框大小 */
 static const unsigned int systraypinning	= 1;         /* 托盘跟随的显示器 0代表不指定显示器 */
 static const unsigned int systrayspacing	= 1;         /* 托盘间距 */
 static const unsigned int systrayspadding	= 5;         /* 托盘和状态栏的间隙 */
-static int gappi							= 5;        /* 窗口与窗口 缝隙大小 */
-static int gappo							= 5;        /* 窗口与边缘 缝隙大小 */
+static int gappi							= 7;        /* 窗口与窗口 缝隙大小 */
+static int gappo							= 7;        /* 窗口与边缘 缝隙大小 */
 static const int _gappo						= 12;        /* 窗口与窗口 缝隙大小 不可变 用于恢复时的默认值 */
 static const int _gappi						= 12;        /* 窗口与边缘 缝隙大小 不可变 用于恢复时的默认值 */
 static const int vertpad					= 5;         /* vertical padding of bar */
@@ -17,10 +17,10 @@ static const int sidepad					= 5;         /* horizontal padding of bar */
 static const int overviewgappi				= 24;        /* overview时 窗口与边缘 缝隙大小 */
 static const int overviewgappo				= 60;        /* overview时 窗口与窗口 缝隙大小 */
 static const int showbar					= 1;         /* 是否显示状态栏 */
-static const int topbar						= 1;         /* 指定状态栏位置 0底部 1顶部 */
+static const int topbar						= 0;         /* 指定状态栏位置 0底部 1顶部 */
 static const float mfact					= 0.6;       /* 主工作区 大小比例 */
 static const int   nmaster					= 1;         /* 主工作区 窗口数量 */
-static const unsigned int snap				= 5;        /* 边缘依附宽度 */
+static const unsigned int snap				= 7;        /* 边缘依附宽度 */
 static const unsigned int baralpha			= 0xa0;      /* 状态栏透明度 */
 static const unsigned int borderalpha		= 0x9d;      /* 边框透明度 */
 static const int user_bh					= 8;         /* 2 is the default spacing around the bar's font */
@@ -54,7 +54,7 @@ static const Rule rules[] = {
     { "st",                  NULL,                 NULL,             0,            0,				1,					  -1 },
     { "chrome",              NULL,                 NULL,             1 << 2,       0,				1,					  -1 }, // chrome     
     { NULL,                  "qq",                 NULL,             1 << 3,       0,				1,					  -1 }, // qq        
-    { "Pcmanfm",             NULL,                 NULL,             0,            1,				1,					  -1}, // pcmanfm          
+    { "typora",              NULL,                 NULL,             1 << 5,       1,				1,					  -1 }, // typora          
 	{ "Gimp",				 NULL,				   NULL,		     0,            1,				0,                    -1 },
 	{ "dev",				 NULL,				   NULL,			 1 << 8,       1,				1,                    -1 },
 	{ "code",				 NULL,				   NULL,			 1 << 7,       1,				1,                    -1 },
