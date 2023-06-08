@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
-
+#include <X11/XF86keysym.h>
+#include <stdbool.h>
 /* appearance */
 
  static int showsystray						= 1;         /* 是否显示托盘栏 */
@@ -54,11 +55,9 @@ static const Rule rules[] = {
     { "st",                  NULL,                 NULL,             0,            0,				1,					  -1 },
     { "chrome",              NULL,                 NULL,             1 << 2,       0,				1,					  -1 }, // chrome     
     { NULL,                  "qq",                 NULL,             1 << 3,       0,				1,					  -1 }, // qq        
-    { "typora",              NULL,                 NULL,             1 << 5,       1,				1,					  -1 }, // typora          
-	{ "Gimp",				 NULL,				   NULL,		     0,            1,				0,                    -1 },
-	{ "dev",				 NULL,				   NULL,			 1 << 8,       1,				1,                    -1 },
-	{ "code",				 NULL,				   NULL,			 1 << 7,       1,				1,                    -1 },
-	{ "studio",				 NULL,				   NULL,			 1 << 6,       0,				1,                    -1 },
+    { "typora",              NULL,                 NULL,             1 << 5,       0,				1,					  -1 }, // typora          
+	{ "dev",				 NULL,				   NULL,			 1 << 8,       0,				1,                    -1 },
+	{ "code",				 NULL,				   NULL,			 1 << 7,       0,				1,                    -1 },
 };
 
 /* layout(s) */
@@ -100,35 +99,37 @@ static const char *flameshotcmd[] = { "/home/july/App/newDWM/dwm/diyscript/flame
 
 static const Key keys[] = {
     /* modifier                     key             function            argument */
-    { 0,                            LiLower,        spawn,              {.v = lightdown} },                 // 静音
-    { 0,                            LiRaise,        spawn,              {.v = lightup} },                 // 静音
-    { 0,                            AuMute,         spawn,              {.v = voltoggle} },                 // 静音
-    { 0,                            AuLower,        spawn,              {.v = voldown} },                  // 音量减 2%
-    { 0,                            AuRaise,        spawn,              {.v = volup} },                    // 音量加 2%
+    { 0,                            LiLower,        spawn,              {.v = lightdown} },     // 提高亮度 
+    { 0,                            LiRaise,        spawn,              {.v = lightup} },       // 减少亮度
+    { 0,                            AuMute,         spawn,              {.v = voltoggle} },     // 静音
+    { 0,                            AuLower,        spawn,              {.v = voldown} },       // 音量减 2%
+    { 0,                            AuRaise,        spawn,              {.v = volup} },         // 音量加 2%
 	{ Mod1Mask|ControlMask,			XK_x,			spawn,				{.v = flameshotcmd} },
-	{ Mod1Mask,						XK_i,			focusstack,			{.i = -1} },						/* Alt up           |  本tag内切换聚焦窗口 */
-    { Mod1Mask,						XK_k,			focusstack,			{.i = +1} },						/* Alt down         |  本tag内切换聚焦窗口 */
-    { Mod1Mask,						XK_j,			viewtoleft,			{0} },								/* Alt left         |  聚焦到左边的tag */
-    { Mod1Mask,						XK_l,			viewtoright,		{0} },								/* Alt right        |  聚焦到右边的tag */
-    { MODKEY,                       XK_p,           spawn,              {.v = dmenucmd } },                 // super + p                | 打开 dmenu
-    { MODKEY,                       XK_Return,      spawn,              {.v = termcmd } },                  // super + enter            | 打开 terminal
-    { MODKEY,                       XK_b,           togglebar,          {0} },                              // super + b                | 状态栏打开\关闭
-    { MODKEY,                       XK_j,           focusstack,         {.i = +1 } },                       // super + j                | 切换为前一个 client
-    { MODKEY,                       XK_k,           focusstack,         {.i = -1 } },                       // super + k                | 切换为后一个 client
-    { MODKEY,                       XK_i,           incnmaster,         {.i = +1 } },                       // super + i                | 工作区设置为上下分布
-    { MODKEY,                       XK_d,           incnmaster,         {.i = -1 } },                       // super + d                | 工作区设置为左右分布
-    { MODKEY,                       XK_h,           setmfact,           {.f = -0.02} },                     // super + h                | 工作区中心线向左移动 0.02
-    { MODKEY,                       XK_l,           setmfact,           {.f = +0.02} },                     // super + h                | 工作区中心线向右移动 0.02
-    { MODKEY|ShiftMask,             XK_Return,      zoom,               {0} },                              // super + Shift + enter    | 当前聚焦窗口设置为主窗口
-    { MODKEY,                       XK_Tab,         view,               {0} },                              // super + Tab              | 切换到上一个tag
-    { MODKEY,                       XK_q,           killclient,         {0} },                              // super + q                | 关闭当前窗口
-    { MODKEY,                       XK_t,           setlayout,          {.v = &layouts[0]} },               // super + t                | 切换为 列表窗口布局
-    { MODKEY,                       XK_m,           setlayout,          {.v = &layouts[1]} },               // super + m                | 切换为 窗口铺满布局
+	{ Mod1Mask,						XK_i,			focusstack,			{.i = -1} },			/* Alt i  |  本tag内切换聚焦窗口 */
+    { Mod1Mask,						XK_k,			focusstack,			{.i = +1} },			/* Alt k  |  本tag内切换聚焦窗口 */
+    { Mod1Mask,						XK_j,			viewtoleft,			{0} },					/* Alt j  |  聚焦到左边的tag */
+    { Mod1Mask,						XK_l,			viewtoright,		{0} },					/* Alt l  |  聚焦到右边的tag */
+    { MODKEY,                       XK_p,           spawn,              {.v = dmenucmd } },     // super + p     | 打开 dmenu
+    { MODKEY,                       XK_Return,      spawn,              {.v = termcmd } },      // super + enter | 打开 terminal
+    { MODKEY,                       XK_b,           togglebar,          {0} },                  // super + b     | 状态栏打开\关闭
+    { MODKEY,                       XK_i,           incnmaster,         {.i = +1 } },        // super + i | 工作区设置为上下分布
+    { MODKEY,                       XK_d,           incnmaster,         {.i = -1 } },        // super + d | 工作区设置为左右分布
+    { MODKEY,                       XK_h,           setmfact,           {.f = -0.02} },      // super + h | 工作区中心线向左移动 0.02
+    { MODKEY,                       XK_l,           setmfact,           {.f = +0.02} },      // super + h | 工作区中心线向右移动 0.02
+    { MODKEY|ShiftMask,             XK_Return,      zoom,               {0} },     // super + Shift + enter | 当前聚焦窗口设置为主窗口
+    { MODKEY,                       XK_Tab,         view,               {0} },     // super + Tab           | 切换到上一个tag
+    { MODKEY,                       XK_q,           killclient,         {0} },     // super + q             | 关闭当前窗口
+    { MODKEY,                       XK_t,           setlayout,          {.v = &layouts[0]} },   // super + t | 切换为 列表窗口布局
+    { MODKEY,                       XK_m,           setlayout,          {.v = &layouts[1]} },   // super + m | 切换为 窗口铺满布局
     { MODKEY,                       XK_space,       setlayout,          {0} },
     { MODKEY|ShiftMask,             XK_space,       togglefloating,     {0} },
-    { MODKEY,                       XK_0,           view,               {.ui = ~0 } },                      // super + 0                | 预览所有tags窗口
+    { MODKEY,                       XK_0,           view,               {.ui = ~0 } },    // super + 0       | 预览所有tags窗口
     { MODKEY|ShiftMask,             XK_0,           tag,                {.ui = ~0 } },
-    { MODKEY|ControlMask,           XK_F12,         quit,               {0} },                              // super + ctrl + F12       | 退出 dwm
+    { MODKEY|ControlMask,           XK_F12,         quit,               {0} },            // super + ctrl + F12       | 退出 dwm
+    { MODKEY|ShiftMask,				XK_i,           exchange_client,	{.i = UP } },           // super shift i      | 二维交换窗口
+    { MODKEY|ShiftMask,				XK_k,           exchange_client,	{.i = DOWN } },         // super shift k      | 二维交换窗口
+    { MODKEY|ShiftMask,				XK_j,           exchange_client,	{.i = LEFT} },          // super shift j      | 二维交换窗口
+    { MODKEY|ShiftMask,				XK_l,           exchange_client,	{.i = RIGHT } },        // super shift l      | 二维交换窗口
 	/* key tag cmd */
     TAGKEYS(XK_1, 0)
     TAGKEYS(XK_2, 1)
