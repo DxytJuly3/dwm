@@ -112,8 +112,8 @@ static const Key keys[] = {
     { MODKEY,                       XK_p,           spawn,              {.v = dmenucmd } },     // super + p     | 打开 dmenu
     { MODKEY,                       XK_Return,      spawn,              {.v = termcmd } },      // super + enter | 打开 terminal
     { MODKEY,                       XK_b,           togglebar,          {0} },                  // super + b     | 状态栏打开\关闭
-    { MODKEY,                       XK_i,           incnmaster,         {.i = +1 } },        // super + i | 工作区设置为上下分布
-    { MODKEY,                       XK_d,           incnmaster,         {.i = -1 } },        // super + d | 工作区设置为左右分布
+    { MODKEY|ShiftMask,             XK_i,           incnmaster,         {.i = +1 } },        // super + i | 工作区设置为上下分布
+    { MODKEY|ShiftMask,             XK_d,           incnmaster,         {.i = -1 } },        // super + d | 工作区设置为左右分布
     { MODKEY|ShiftMask,             XK_h,           setmfact,           {.f = -0.02} },      // super + h | 工作区中心线向左移动 0.02
     { MODKEY|ShiftMask,             XK_l,           setmfact,           {.f = +0.02} },      // super + h | 工作区中心线向右移动 0.02
     { MODKEY|ShiftMask,             XK_Return,      zoom,               {0} },     // super + Shift + enter | 当前聚焦窗口设置为主窗口
